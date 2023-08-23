@@ -5,15 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
 use App\Lesson\Model\Lesson;
+use App\Lesson\Query\GetLessonsQuery;
+use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, GetLessonsQuery $getLessonsQuery)
     {
-        //
+        $perPage = $request->input('perPage', 10);
+
+        return [
+            'lessons' => $getLessonsQuery->execute()->paginate($perPage),
+        ];
     }
 
     /**
