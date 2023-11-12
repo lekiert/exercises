@@ -84,7 +84,7 @@ watch(newDefinition, () => {
   </div>
 
   <div class="mb-3">
-    <label>Odpowiedzi</label>
+    <label>Odpowiedzi <small>(gdy jest ich kilka, oddziel znakiem <code>|</code>)</small></label>
     <div class="card p-3">
       <p class="lh-lg">
         <template v-for="(el, index) in newDefinition">
