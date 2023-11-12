@@ -72,18 +72,18 @@ class ExerciseController extends Controller
         /** @var User $user */
         $user = auth()->user();
 
-        $data = new ExerciseData(
-            $request->input('exercise.name'),
-            $request->input('exercise.description'),
-            ExerciseType::from($request->input('exercise.type')),
-            $request->input('exercise.definition'),
-            $request->input('exercise.solution'),
-        );
-
         $exercise = auth()
             ->user()
             ->exercises()
             ->findOrFail($id);
+
+        $data = new ExerciseData(
+            $request->input('exercise.name'),
+            $request->input('exercise.description'),
+            $exercise->type,
+            $request->input('exercise.definition'),
+            $request->input('exercise.solution'),
+        );
 
         $exercise = $action->execute($exercise, $data);
 
