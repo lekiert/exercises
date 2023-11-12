@@ -18,7 +18,7 @@ class Exercise extends Model
 
     protected $casts = [
         'definition' => 'array',
-        'solution' => 'array',
+        'solution' => 'json',
         'type' => ExerciseType::class,
     ];
 }
