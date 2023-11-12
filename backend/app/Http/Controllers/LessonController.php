@@ -11,22 +11,11 @@ use App\Lesson\Data\LessonData;
 use App\Lesson\Model\Lesson;
 use App\Lesson\Query\GetLessonsQuery;
 use App\Models\User;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LessonController extends Controller
 {
-    private readonly User $user;
-
-    public function __construct(Guard $guard)
-    {
-        /** @var User $user */
-        $user = $guard->user();
-
-        $this->user = $user;
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -34,9 +23,7 @@ class LessonController extends Controller
     {
         $perPage = $request->input('perPage', 10);
 
-        return [
-            'lessons' => $getLessonsQuery->execute()->paginate($perPage),
-        ];
+        return $getLessonsQuery->execute()->paginate($perPage);
     }
 
     /**
@@ -50,7 +37,7 @@ class LessonController extends Controller
             $request->input('lesson.slug'),
         );
 
-        $lesson = $action->execute($this->user, $data);
+        $lesson = $action->execute(auth()->user(), $data);
 
         return response()->json(compact('lesson'));
     }
@@ -58,8 +45,12 @@ class LessonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Lesson $lesson)
+    public function show(int $id)
     {
+        $lesson = Lesson::query()
+            ->with('exercises')
+            ->findOrFail($id);
+
         return response()->json(compact('lesson'));
     }
 
@@ -72,9 +63,9 @@ class LessonController extends Controller
         );
 
         /** @var Lesson $lesson */
-        $lesson = $this->user->lessons()->findOrFail($id);
+        $lesson = auth()->user()->lessons()->findOrFail($id);
 
-        $lesson = $action->execute($this->user, $lesson, $data);
+        $lesson = $action->execute(auth()->user(), $lesson, $data);
 
         return response()->json(compact('lesson'));
     }

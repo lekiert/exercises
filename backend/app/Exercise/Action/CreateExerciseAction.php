@@ -5,18 +5,20 @@ namespace App\Exercise\Action;
 use App\Exercise\Data\ExerciseData;
 use App\Exercise\Model\Exercise;
 use App\Lesson\Model\Lesson;
+use App\Models\User;
 
 class CreateExerciseAction
 {
-    public function execute(Lesson $lesson, ExerciseData $data): Exercise
+    public function execute(User $owner, ExerciseData $data): Exercise
     {
         /** @var Exercise $exercise */
-        $exercise = $lesson->exercises()
+        $exercise = $owner->exercises()
             ->create([
-                $data->title,
-                $data->description,
-                $data->definition,
-                $data->solution,
+                'name' => $data->name,
+                'description' => $data->description,
+                'type' => $data->type,
+                'definition' => $data->definition,
+                'solution' => $data->solution,
             ]);
 
         return $exercise;

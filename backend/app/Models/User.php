@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Exercise\Model\Exercise;
 use App\Lesson\Model\Lesson;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -49,5 +50,10 @@ class User extends Authenticatable
     public function lessons(): HasMany
     {
         return $this->hasMany(Lesson::class, 'owner_id');
+    }
+
+    public function exercises(): HasMany
+    {
+        return $this->hasMany(Exercise::class, 'owner_id');
     }
 }

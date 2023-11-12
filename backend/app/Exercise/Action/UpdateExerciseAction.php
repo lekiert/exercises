@@ -11,8 +11,9 @@ class UpdateExerciseAction
     public function execute(Exercise $exercise, ExerciseData $data): Exercise
     {
         $exercise->fill([
-            'title' => $data->title,
+            'name' => $data->name,
             'description' => $data->description,
+            'type' => $data->type,
             'definition' => $data->definition,
             'solution' => $data->solution,
         ]);

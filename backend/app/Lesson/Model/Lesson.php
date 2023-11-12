@@ -20,7 +20,7 @@ class Lesson extends Model
 
     public function exercises(): HasManyThrough
     {
-        return $this->hasManyThrough(Exercise::class, LessonExercise::class);
+        return $this->hasManyThrough(Exercise::class, LessonExercise::class, 'id', 'id', 'lesson_id', 'exercise_id');
     }
 
     public static function newFactory(): LessonFactory
