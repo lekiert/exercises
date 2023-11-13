@@ -3,6 +3,7 @@ import {onMounted, useApiFetch, useCookie, useRuntimeConfig, useRoute, ref, defi
 import FormRow from "~/components/FormRow.vue";
 import BackLink from "~/components/Admin/BackLink.vue";
 import Container from "~/components/Admin/Container.vue";
+import ExerciseLookup from "~/components/Admin/ExerciseLookup.vue";
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -28,6 +29,18 @@ const getLesson = async () => {
     console.error(e);
   }
 };
+
+const addExercise = (exercise: any) => {
+  if (lesson.value.exercises.find(e => e.id === exercise.id)) {
+    return;
+  }
+
+  lesson.value.exercises.push(exercise)
+}
+
+const removeExercise = (index) => {
+  lesson.value.exercises.splice(index, 1)
+}
 
 const save = async () => {
   try {
@@ -62,6 +75,30 @@ onMounted(async () => {
         <label for="lesson-description-id" class="form-label">Polecenie</label>
         <textarea class="form-control" name="lesson[description]" id="lesson-description-id"
                   v-model="lesson.description"></textarea>
+      </FormRow>
+
+      <FormRow>
+        <label>Ćwiczenia</label>
+        <table class="table" v-show="lesson.exercises.length">
+          <tbody>
+          <tr v-for="(exercise, index) in lesson.exercises">
+            <td>
+              {{ exercise.name }}
+            </td>
+            <td class="text-right">
+              <a :href="'/admin/exercises/' + exercise.id" class="btn btn-primary mr-2">edytuj</a>
+              <a href="#" @click="removeExercise(index)" class="btn btn-danger">usuń</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <p class="text-muted" v-show="!lesson.exercises.length">Brak przypisanych ćwiczeń</p>
+      </FormRow>
+
+      <FormRow>
+        <label>Dodaj ćwiczenie</label>
+        <ExerciseLookup @exercisePicked="addExercise($event.exercise)" />
       </FormRow>
 
       <FormRow class="text-right">
