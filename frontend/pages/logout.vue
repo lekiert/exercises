@@ -1,7 +1,9 @@
-<script setup lang="ts">
+<script setup>
 import {useApiFetch} from "#imports";
 
-await useApiFetch('/logout')
+await useApiFetch('/logout', {
+  method: 'POST',
+})
 
 const sessionCookie = useCookie('laravel_session');
 sessionCookie.value = null;
