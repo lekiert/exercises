@@ -9,10 +9,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 class GetExercisesQuery
 {
-    public function execute(int $maxResults = 10): Builder
+    public function execute(?string $search = null, int $maxResults = 10): Builder
     {
-        return Exercise::query()
+        $query = Exercise::query()
             ->orderByDesc('id')
             ->limit($maxResults);
+
+        if ($search) {
+            $query->where('name', 'LIKE', '%' . $search . '%');
+        }
+
+        return $query;
     }
 }

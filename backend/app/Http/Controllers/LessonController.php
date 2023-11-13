@@ -9,6 +9,7 @@ use App\Lesson\Action\DeleteLessonAction;
 use App\Lesson\Action\UpdateLessonAction;
 use App\Lesson\Data\LessonData;
 use App\Lesson\Model\Lesson;
+use App\Lesson\Model\LessonExercise;
 use App\Lesson\Query\GetLessonsQuery;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -66,6 +67,22 @@ class LessonController extends Controller
         $lesson = auth()->user()->lessons()->findOrFail($id);
 
         $lesson = $action->execute(auth()->user(), $lesson, $data);
+
+        $pivotModelIds = [];
+        foreach ($request->input('lesson.exercises') as $exercise) {
+            $pivotModel = LessonExercise::firstOrNew([
+                'lesson_id' => $lesson->id,
+                'exercise_id' => $exercise['id']
+            ]);
+
+            $pivotModel->save();
+            $pivotModelIds[] = $pivotModel->id;
+        }
+
+        LessonExercise::query()
+            ->where('lesson_id', $lesson->id)
+            ->whereNotIn('id', $pivotModelIds)
+            ->delete();
 
         return response()->json(compact('lesson'));
     }

@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LessonExercise extends Model
 {
+    protected $fillable = [
+        'lesson_id', 'exercise_id',
+    ];
+
     public function exercise(): BelongsTo
     {
         return $this->belongsTo(Exercise::class);

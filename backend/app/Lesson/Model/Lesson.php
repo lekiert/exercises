@@ -18,9 +18,9 @@ class Lesson extends Model
         'name', 'description', 'slug',
     ];
 
-    public function exercises(): HasManyThrough
+    public function exercises(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasManyThrough(Exercise::class, LessonExercise::class, 'id', 'id', 'lesson_id', 'exercise_id');
+        return $this->belongsToMany(Exercise::class, 'lesson_exercises');
     }
 
     public static function newFactory(): LessonFactory

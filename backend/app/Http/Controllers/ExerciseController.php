@@ -22,8 +22,9 @@ class ExerciseController extends Controller
     public function index(Request $request, GetExercisesQuery $getExercisesQuery)
     {
         $perPage = $request->input('perPage', 10);
+        $search = $request->input('q');
 
-        return $getExercisesQuery->execute()->paginate($perPage);
+        return $getExercisesQuery->execute($search)->paginate($perPage);
     }
 
     /**
