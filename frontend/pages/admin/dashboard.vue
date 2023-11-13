@@ -51,7 +51,7 @@ onMounted(async () => {
       <div class="col-lg-6 col-md-12">
         <div class="mb-3">
           <h4>
-            Cwiczenia
+            Ćwiczenia
             <a href="/admin/exercise/create" class="btn btn-primary float-end">dodaj</a>
           </h4>
         </div>
