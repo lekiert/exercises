@@ -13,6 +13,8 @@ import FormRow from "~/components/FormRow.vue";
 import BracketsForm from "~/components/Admin/ExerciseForm/BracketsForm.vue";
 import QuizForm from "~/components/Admin/ExerciseForm/QuizForm.vue";
 import {useAppStore} from "~/stores/appStore";
+import BackLink from "~/components/Admin/BackLink.vue";
+import Container from "~/components/Admin/Container.vue";
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -82,42 +84,37 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="row g-5 mb-5">
-    <div class="col-lg-9 col-md-12 pt-5">
-      <a href="/admin/dashboard">Powrót</a>
-      <hr>
-    </div>
-  </div>
+  <BackLink />
 
-  <div class="row g-5 mb-5">
-    <div class="col-lg-9 col-md-12">
-      <form>
-        <FormRow>
-          <label for="exercise-name-id" class="form-label">Nazwa</label>
-          <input class="form-control" type="text" id="exercise-name-id" v-model="exercise.name" />
-        </FormRow>
+  <Container>
+    <form>
+      <FormRow>
+        <label for="exercise-name-id" class="form-label">Nazwa</label>
+        <input class="form-control" type="text" id="exercise-name-id" v-model="exercise.name" />
+      </FormRow>
 
-        <FormRow>
-          <label for="exercise-description-id" class="form-label">Polecenie</label>
-          <textarea class="form-control" name="exercise[description]" id="exercise-description-id"
-                    v-model="exercise.description"></textarea>
-        </FormRow>
+      <FormRow>
+        <label for="exercise-description-id" class="form-label">Polecenie</label>
+        <textarea class="form-control" name="exercise[description]" id="exercise-description-id"
+                  v-model="exercise.description"></textarea>
+      </FormRow>
 
-        <FormRow>
-          <label for="exercise-type-id" class="form-label">Typ</label>
-          <input class="form-control" type="text" id="exercise-name-id" :value="exercise.type" disabled />
-        </FormRow>
+      <FormRow>
+        <label for="exercise-type-id" class="form-label">Typ</label>
+        <input class="form-control" type="text" id="exercise-name-id" :value="exercise.type" disabled />
+      </FormRow>
 
-        <FormRow>
-          <BracketsForm :exercise="exercise" v-if="exercise.type === 'brackets'"
-                        @exerciseUpdated="updateExercise($event)"></BracketsForm>
-          <QuizForm :exercise="exercise" v-if="exercise.type === 'quiz'"
-                    @exerciseUpdated="updateExercise($event)"></QuizForm>
-        </FormRow>
+      <FormRow>
+        <BracketsForm :exercise="exercise" v-if="exercise.type === 'brackets'"
+                      @exerciseUpdated="updateExercise($event)"></BracketsForm>
+        <QuizForm :exercise="exercise" v-if="exercise.type === 'quiz'"
+                  @exerciseUpdated="updateExercise($event)"></QuizForm>
+      </FormRow>
 
+      <FormRow class="text-right">
         <button class="btn btn-primary" type="submit" @click.prevent="save"
-          :disabled="appStore.inProgress">Zapisz</button>
-      </form>
-    </div>
-  </div>
+                :disabled="appStore.inProgress">Zapisz</button>
+      </FormRow>
+    </form>
+  </Container>
 </template>

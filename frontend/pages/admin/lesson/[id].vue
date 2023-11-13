@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {onMounted, useApiFetch, useCookie, useRuntimeConfig, useRoute, ref, definePageMeta} from "#imports";
 import FormRow from "~/components/FormRow.vue";
+import BackLink from "~/components/Admin/BackLink.vue";
+import Container from "~/components/Admin/Container.vue";
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -47,22 +49,24 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="row g-5">
-    <div class="col-md-5 col-lg-4 mx-auto p-3">
-      <form>
-        <FormRow>
-          <label for="lesson-name-id" class="form-label">Nazwa</label>
-          <input class="form-control" type="text" id="lesson-name-id" v-model="lesson.name" />
-        </FormRow>
+  <BackLink />
 
-        <FormRow>
-          <label for="lesson-description-id" class="form-label">Polecenie</label>
-          <textarea class="form-control" name="lesson[description]" id="lesson-description-id"
-                    v-model="lesson.description"></textarea>
-        </FormRow>
+  <Container>
+    <form>
+      <FormRow>
+        <label for="lesson-name-id" class="form-label">Nazwa</label>
+        <input class="form-control" type="text" id="lesson-name-id" v-model="lesson.name" />
+      </FormRow>
 
+      <FormRow>
+        <label for="lesson-description-id" class="form-label">Polecenie</label>
+        <textarea class="form-control" name="lesson[description]" id="lesson-description-id"
+                  v-model="lesson.description"></textarea>
+      </FormRow>
+
+      <FormRow class="text-right">
         <button class="btn btn-primary" type="submit" @click.prevent="save">Zapisz</button>
-      </form>
-    </div>
-  </div>
+      </FormRow>
+    </form>
+  </Container>
 </template>

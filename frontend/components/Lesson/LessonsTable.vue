@@ -3,7 +3,7 @@ defineProps(['lessons']);
 </script>
 
 <template>
-  <table class="table">
+  <table class="table" v-show="lessons.length">
     <tbody>
     <tr v-for="lesson in lessons">
       <td>
@@ -12,4 +12,6 @@ defineProps(['lessons']);
     </tr>
     </tbody>
   </table>
+
+  <p v-show="!lessons.length" class="text-muted">Brak danych</p>
 </template>
