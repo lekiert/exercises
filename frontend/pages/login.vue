@@ -29,7 +29,7 @@ const login = async () => {
   }
 
   if (status.value === 'success') {
-    navigateTo('admin');
+    navigateTo('/admin/dashboard');
   }
 }
 </script>
