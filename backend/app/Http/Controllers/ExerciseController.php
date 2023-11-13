@@ -7,19 +7,23 @@ use App\Exercise\Action\UpdateExerciseAction;
 use App\Exercise\Data\ExerciseData;
 use App\Exercise\Enum\ExerciseType;
 use App\Exercise\Model\Exercise;
+use App\Exercise\Query\GetExercisesQuery;
 use App\Http\Requests\StoreExerciseRequest;
 use App\Http\Requests\UpdateExerciseRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ExerciseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, GetExercisesQuery $getExercisesQuery)
     {
-        //
+        $perPage = $request->input('perPage', 10);
+
+        return $getExercisesQuery->execute()->paginate($perPage);
     }
 
     /**
