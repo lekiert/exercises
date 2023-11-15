@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type {Exercise} from "~/types";
 import useFormatDate from "~/composables/useFormatDate";
+import TextLink from "~/components/TextLink.vue";
 
-const props = defineProps(['exercises']);
+const props = defineProps(['exercises'])
 
 const columns = [{
   key: 'id',
@@ -25,7 +26,7 @@ const rows = computed(() => props.exercises.map((e: Exercise) => ({
 <template>
   <UTable :rows="rows" :columns="columns">
     <template #name-data="{ row }">
-      <ULink :to="'/admin/exercise/' + row.id" active-class="text-primary">{{ row.name }}</ULink>
+      <TextLink :href="'/admin/exercise/' + row.id" active-class="text-primary">{{ row.name }}</TextLink>
     </template>
   </UTable>
 </template>

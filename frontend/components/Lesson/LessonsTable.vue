@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {Lesson} from "~/types";
 import useFormatDate from "~/composables/useFormatDate";
+import TextLink from "~/components/TextLink.vue";
 
 const props = defineProps(['lessons']);
 
@@ -25,7 +26,7 @@ const rows = computed(() => props.lessons.map((l: Lesson) => ({
 <template>
   <UTable :rows="rows" :columns="columns">
     <template #name-data="{ row }">
-      <ULink :to="'/admin/lesson/' + row.id" active-class="text-primary">{{ row.name }}</ULink>
+      <TextLink :href="'/admin/lesson/' + row.id" active-class="text-primary">{{ row.name }}</TextLink>
     </template>
   </UTable>
 </template>
