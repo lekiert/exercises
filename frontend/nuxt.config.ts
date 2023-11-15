@@ -16,11 +16,15 @@ export default defineNuxtConfig({
     }
   },
   modules: [
+    '@nuxt/ui',
     '@pinia/nuxt',
   ],
   ssr: false,
   css: [
-    'bootstrap/dist/css/bootstrap.css',
     '~/assets/scss/main.css'
   ],
+  ui: {
+    primary: 'green',
+    gray: 'cool'
+  }
 })

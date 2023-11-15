@@ -3,6 +3,7 @@ import useApiCall from "~/composables/useApiCall"
 import LessonsTable from "~/components/Lesson/LessonsTable.vue";
 import ExercisesTable from "~/components/Admin/ExercisesTable.vue";
 import Container from "~/components/Admin/Container.vue";
+import SectionHeader from "~/components/SectionHeader.vue";
 
 definePageMeta({
   layout: 'admin',
@@ -36,28 +37,40 @@ onMounted(async () => {
 
 <template>
   <Container>
-    <div class="row">
-      <div class="col-xl-6 col-md-12">
-        <div class="mb-3">
-          <h4>
-            Ostatnie lekcje
-            <a href="/admin/lesson/create" class="btn btn-primary float-end">dodaj</a>
-          </h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <UCard>
+        <template #header>
+          <SectionHeader>
+            Lekcje
+
+            <UButton @click="navigateTo('/admin/lesson/create')" class="float-right">
+              <UIcon class="i-heroicons-plus"></UIcon>
+              Dodaj
+            </UButton>
+          </SectionHeader>
+        </template>
+
+        <div class="clear-both">
+          <LessonsTable :lessons="lessons" />
         </div>
+      </UCard>
 
-        <LessonsTable :lessons="lessons" />
-      </div>
-
-      <div class="col-lg-6 col-md-12">
-        <div class="mb-3">
-          <h4>
+      <UCard>
+        <template #header>
+          <SectionHeader>
             Ćwiczenia
-            <a href="/admin/exercise/create" class="btn btn-primary float-end">dodaj</a>
-          </h4>
-        </div>
 
-        <ExercisesTable :exercises="exercises" />
-      </div>
+            <UButton @click="navigateTo('/admin/exercise/create')" class="float-right">
+              <UIcon class="i-heroicons-plus"></UIcon>
+              Dodaj
+            </UButton>
+          </SectionHeader>
+        </template>
+
+        <div class="clear-both">
+          <ExercisesTable :exercises="exercises" />
+        </div>
+      </UCard>
     </div>
   </Container>
 </template>

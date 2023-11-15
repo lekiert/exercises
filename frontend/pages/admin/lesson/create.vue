@@ -3,6 +3,7 @@ import {useApiFetch, useCookie, useRuntimeConfig, ref, definePageMeta, navigateT
 import type {Lesson} from "~/types";
 import BackLink from "~/components/Admin/BackLink.vue";
 import Container from "~/components/Admin/Container.vue";
+import PageHeader from "~/components/PageHeader.vue";
 
 const config = useRuntimeConfig()
 const token = useCookie('XSRF-TOKEN')
@@ -19,7 +20,7 @@ const lesson = ref(<Lesson>{
 
 const submit = async () => {
   try {
-    const response = await useApiFetch(config.public.apiUrl + '/api/lessons', {
+    const response: any = await useApiFetch(config.public.apiUrl + '/api/lessons', {
       method: 'POST',
       body: {
         lesson: lesson.value
@@ -34,24 +35,29 @@ const submit = async () => {
 </script>
 
 <template>
-  <BackLink />
-
   <Container>
-    <form>
-      <FormRow>
-        <label for="lesson-name-id" class="form-label">Nazwa</label>
-        <input class="form-control" type="text" id="lesson-name-id" v-model="lesson.name" />
-      </FormRow>
+    <BackLink />
 
-      <FormRow>
-        <label for="lesson-description-id" class="form-label">Polecenie</label>
-        <textarea class="form-control" name="lesson[description]" id="lesson-description-id"
-                  v-model="lesson.description"></textarea>
-      </FormRow>
+    <UCard>
+      <template #header>
+        <PageHeader>Dodaj lekcję</PageHeader>
+      </template>
 
-      <FormRow class="text-right">
-        <button class="btn btn-primary" type="submit" @click.prevent="submit">Dodaj</button>
-      </FormRow>
-    </form>
+      <form>
+        <FormRow>
+          <label for="lesson-name-id" class="form-label">Nazwa</label>
+          <UInput id="lesson-name-id" v-model="lesson.name" />
+        </FormRow>
+
+        <FormRow>
+          <label for="lesson-description-id" class="form-label">Polecenie</label>
+          <UTextarea id="lesson-description-id" v-model="lesson.description" />
+        </FormRow>
+
+        <FormRow class="text-right">
+          <UButton class="btn btn-primary" type="submit" @click.prevent="submit">Dodaj</UButton>
+        </FormRow>
+      </form>
+    </UCard>
   </Container>
 </template>

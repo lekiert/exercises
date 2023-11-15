@@ -18,7 +18,7 @@ const addAnswer = () => {
   definition.value.answers.push({ text: '' });
 }
 
-const removeAnswer = (index) => {
+const removeAnswer = (index: number) => {
   definition.value.answers.splice(index, 1);
 };
 
@@ -36,36 +36,60 @@ watch(solution, (newVal) => {
   })
 }, { deep: true })
 
+const columns = [
+  {
+    key: 'index',
+  }, {
+    key: 'text',
+  }, {
+    key: 'delete',
+  }
+]
+
+const rows = computed(() => definition.value.answers.map((a: any, i: number) => ({
+  index: i,
+  text: a.text,
+  class: solution.value.correctAnswerIndex === i ? 'bg-green-500/50 dark:bg-green-400/50' : '',
+})))
 </script>
 
 <template>
   <div class="mb-3">
     <label for="exercise-question-id">Pytanie</label>
-    <input type="text" class="form-control" id="exercise-question-id" v-model="definition.question">
+    <UInput type="text" id="exercise-question-id" v-model="definition.question" />
   </div>
 
   <div>
     <label>Odpowiedzi</label>
 
-    <table class="table table-borderless w-100">
-      <tbody>
-      <tr v-for="(answer, index) in definition.answers">
-        <td>
-          <input type="checkbox" class="form-checkbox"
-                 @click="solution.correctAnswerIndex = index"
-                 :checked="solution.correctAnswerIndex === index">
-        </td>
+    <UTable :rows="rows" :columns="columns">
+      <template #index-data="{ row }">
+        <UButton
+          :color="solution.correctAnswerIndex === row.index ? 'green' : 'gray'"
+          @click="solution.correctAnswerIndex = row.index"
+        >
+          <UIcon name="i-heroicons-check" />
+        </UButton>
+      </template>
 
-        <td>
-          <input type="text" class="form-control" v-model="answer.text">
-        </td>
+      <template #text-data="{ row }">
+        <UInput type="text" class="form-control" v-model="definition.answers[row.index].text" />
+      </template>
 
-        <td class="text-right">
-          <button type="button" class="btn btn-danger inline-block" @click="removeAnswer(index)">usuń</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <button type="button" class="btn btn-primary" @click="addAnswer">Dodaj</button>
+      <template #delete-data="{ row }">
+        <div class="text-right">
+          <UButton @click="removeAnswer(index)" color="gray">
+            <UIcon name="i-heroicons-x-mark"></UIcon>
+          </UButton>
+        </div>
+      </template>
+    </UTable>
+
+    <div class="mt-3">
+      <UButton @click="addAnswer">
+        <UIcon name="i-heroicons-plus" />
+        Dodaj odpowiedź
+      </UButton>
+    </div>
   </div>
 </template>

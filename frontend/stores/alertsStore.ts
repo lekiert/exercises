@@ -15,7 +15,7 @@ export const useAlertsStore = defineStore('alerts', {
             this.type = alert.type;
         },
 
-        success(message: string, description: string|null) {
+        success(message: string, description?: string|null) {
             const alert = <Alert>{
                 type: AlertType.success,
                 message: message,
@@ -25,7 +25,7 @@ export const useAlertsStore = defineStore('alerts', {
             this.display(alert);
         },
 
-        error(message: string, description: string|null) {
+        error(message: string, description?: string|null) {
             const alert = <Alert>{
                 type: AlertType.error,
                 message: message,

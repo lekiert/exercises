@@ -1,17 +1,31 @@
 <script setup lang="ts">
-defineProps(['exercises']);
+import type {Exercise} from "~/types";
+import useFormatDate from "~/composables/useFormatDate";
+
+const props = defineProps(['exercises']);
+
+const columns = [{
+  key: 'id',
+  label: 'ID'
+}, {
+  key: 'name',
+  label: 'Nazwa'
+}, {
+  key: 'created_at',
+  label: 'Utworzone'
+}]
+
+const rows = computed(() => props.exercises.map((e: Exercise) => ({
+  id: e.id,
+  name: e.name,
+  created_at: useFormatDate(e.created_at as string)
+})))
 </script>
 
 <template>
-  <table class="table" v-show="exercises.length">
-    <tbody>
-    <tr v-for="exercise in exercises">
-      <td>
-        <a :href="'/admin/exercise/' + exercise.id">{{ exercise.name }}</a></td>
-      <td>{{ exercise.created_at }}</td>
-    </tr>
-    </tbody>
-  </table>
-
-  <p v-show="!exercises.length" class="text-muted">Brak danych</p>
+  <UTable :rows="rows" :columns="columns">
+    <template #name-data="{ row }">
+      <ULink :to="'/admin/exercise/' + row.id" active-class="text-primary">{{ row.name }}</ULink>
+    </template>
+  </UTable>
 </template>

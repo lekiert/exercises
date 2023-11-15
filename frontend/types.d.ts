@@ -17,14 +17,15 @@ type Exercise = {
   description: string,
   definition: any,
   solution: any,
+  created_at?: string|null,
 }
 
 type Lesson = {
   id: number|null,
   name: string,
-  type: string,
   description: string,
-  exercises: Array<Exercise>
+  exercises: Array<Exercise>,
+  created_at?: string|null,
 }
 
 export { AlertType, Alert, Exercise, Lesson }

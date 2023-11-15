@@ -79,30 +79,36 @@ watch(newDefinition, () => {
 <template>
   <div class="mb-3">
     <label for="definition-text-id">Treść</label>
-    <textarea name="definition[text]" id="definition-text-id" rows="7"
-              class="form-control" v-model="definitionText"></textarea>
+    <UTextarea name="definition[text]" id="definition-text-id" rows="7"
+              class="form-control" v-model="definitionText"></UTextarea>
   </div>
 
   <div class="mb-3">
     <label>Odpowiedzi <small>(gdy jest ich kilka, oddziel znakiem <code>|</code>)</small></label>
-    <div class="card p-3">
-      <p class="lh-lg">
-        <template v-for="(el, index) in newDefinition">
-          <span v-if="el.type === 'text'">{{ el.value }}</span>
-          <div v-if="el.type === 'bracket'" style="display: inline-block">
-            <div class="input-group input-group-sm mx-3 mb-2">
-              <span class="input-group-text">
-                <button type="button" class="btn btn-sm" @click="decreaseFieldSize(index)">-</button>
-              </span>
-              <input type="text" class="form-control-sm" :style="{ width: (el.size + 'em') }"
-                     v-model="newSolution[index]">
-              <span class="input-group-text">
-                <button type="button" class="btn btn-sm" @click="increaseFieldSize(index)">+</button>
-              </span>
-            </div>
-          </div>
-        </template>
-      </p>
-    </div>
+
+    <UCard>
+      <template v-for="(el, index) in newDefinition">
+        <span v-if="el.type === 'text'">{{ el.value }}</span>
+        <div v-if="el.type === 'bracket'" style="display: inline-block">
+          <UButtonGroup size="sm" class="mx-4 my-2">
+            <UButton type="button" size="sm" @click="decreaseFieldSize(index)" color="gray">
+              <span class="i-heroicons-minus"></span>
+            </UButton>
+            <UInput type="text" :style="{ width: (el.size + 'em') }"
+                   v-model="newSolution[index]" />
+            <UButton type="button" size="sm" @click="increaseFieldSize(index)" color="gray">
+              <span class="i-heroicons-plus"></span>
+            </UButton>
+          </UButtonGroup>
+        </div>
+      </template>
+    </UCard>
   </div>
 </template>
+
+<style scoped>
+  .bracket {
+    background: transparent;
+    border-bottom: 2px solid #fff;
+  }
+</style>

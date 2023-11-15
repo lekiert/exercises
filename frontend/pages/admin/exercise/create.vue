@@ -4,6 +4,7 @@ import FormRow from "~/components/FormRow.vue";
 import type {Exercise} from "~/types";
 import Container from "~/components/Admin/Container.vue";
 import BackLink from "~/components/Admin/BackLink.vue";
+import PageHeader from "~/components/PageHeader.vue";
 
 const config = useRuntimeConfig()
 const token = useCookie('XSRF-TOKEN')
@@ -37,32 +38,38 @@ const submit = async () => {
 </script>
 
 <template>
-  <BackLink />
-
   <Container>
-    <form>
-      <FormRow>
-        <label for="exercise-name-id" class="form-label">Nazwa</label>
-        <input class="form-control" type="text" id="exercise-name-id" v-model="exercise.name" />
-      </FormRow>
+    <BackLink />
 
-      <FormRow>
-        <label for="exercise-description-id" class="form-label">Polecenie</label>
-        <textarea class="form-control" name="exercise[description]" id="exercise-description-id"
-                  v-model="exercise.description"></textarea>
-      </FormRow>
+    <UCard>
+      <template #header>
+        <PageHeader>Dodaj ćwiczenie</PageHeader>
+      </template>
 
-      <FormRow>
-        <label for="exercise-type-id" class="form-label">Typ</label>
-        <select class="form-control" id="form-type-id" v-model="exercise.type">
-          <option value="brackets">Luki</option>
-          <option value="quiz">Quiz</option>
-        </select>
-      </FormRow>
+      <form>
+        <FormRow>
+          <label for="exercise-name-id" class="form-label">Nazwa</label>
+          <UInput type="text" id="exercise-name-id" v-model="exercise.name" />
+        </FormRow>
 
-      <FormRow class="text-right">
-        <button class="btn btn-primary" type="submit" @click.prevent="submit">Dodaj</button>
-      </FormRow>
-    </form>
+        <FormRow>
+          <label for="exercise-description-id" class="form-label">Polecenie</label>
+          <UTextarea name="exercise[description]" id="exercise-description-id"
+                     v-model="exercise.description"></UTextarea>
+        </FormRow>
+
+        <FormRow>
+          <label for="exercise-type-id" class="form-label">Typ</label>
+          <USelect id="form-type-id" v-model="exercise.type">
+            <option value="brackets">Luki</option>
+            <option value="quiz">Quiz</option>
+          </USelect>
+        </FormRow>
+
+        <FormRow class="text-right">
+          <UButton type="submit" @click.prevent="submit">Dodaj</UButton>
+        </FormRow>
+      </form>
+    </UCard>
   </Container>
 </template>

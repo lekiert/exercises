@@ -1,20 +1,24 @@
 <script lang="ts" setup>
 import {ref, useApiFetch, watch} from '#imports'
-import {debounce} from "@antfu/utils";
+import type {Exercise} from "~/types";
 
 const $emit = defineEmits(['exercisePicked'])
 
-const query = ref('');
 const results = ref([]);
 
-const search = async () => {
+type exerciseRow = {
+  id: number,
+  label: string,
+}
+
+const search = async (query: string) => {
   try {
-    if (!query.value) {
+    if (!query) {
       results.value = [];
       return;
     }
 
-    const response = await useApiFetch('/api/exercises?q=' + query.value)
+    const response: any = await useApiFetch('/api/exercises?q=' + query)
 
     results.value = response.data.value.data
   } catch (e) {
@@ -22,15 +26,38 @@ const search = async () => {
   }
 }
 
-watch(query, debounce(1000, search))
+const foundExercises = computed(() => results.value.map((i: Exercise) => ({
+  id: i.id,
+  label: i.name,
+} as exerciseRow)))
+
+const groups = [{
+  key: 'selected',
+  search: async (q: string) => {
+     await search(q);
+
+     return foundExercises;
+  }
+}]
+
+const pickExercise = (e: exerciseRow) => {
+  const exercise = results.value.find((i: Exercise) => i.id === e.id)
+  $emit('exercisePicked', { exercise })
+  // selected.value = {};
+}
+
+const selected = ref([{}])
 </script>
 
 <template>
-  <input type="text" class="form-control" v-model="query" />
-
-  <ul>
-    <li v-for="exercise in results">
-      <a href="#" @click="$emit('exercisePicked', { exercise })">{{ exercise.name }}</a>
-    </li>
-  </ul>
+  <UCommandPalette
+      :groups="groups"
+      :autoselect="false"
+      v-model="selected"
+      @update:model-value="pickExercise"
+  >
+    <template #empty-state>
+      <span></span>
+    </template>
+  </UCommandPalette>
 </template>

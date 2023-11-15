@@ -8,11 +8,9 @@ const alertsStore = useAlertsStore();
 <template>
   <Navbar />
 
-  <div class="container">
-    <main>
-      <slot/>
-    </main>
-  </div>
+  <main>
+    <slot/>
+  </main>
 
   <Modal />
 </template>
