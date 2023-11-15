@@ -21,7 +21,7 @@ const useApiFetch: typeof useFetch = async (request, opts?) => {
     opts = { headers }
   }
 
-  const  { data, pending, error, refresh, status } = await useFetch(request, { ...opts, baseURL: config.public.apiUrl as string })
+  const  { data, pending, error, refresh, status } = await useFetch(request, { baseURL: config.public.apiUrl as string, ...opts })
 
   const redirectToLoginCodes: Array<number> = [401, 429];
 
