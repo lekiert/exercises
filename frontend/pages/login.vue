@@ -36,45 +36,43 @@ const login = async () => {
 
 <template>
   <div class="d-flex align-items-center py-4 bg-body-tertiary">
-    <main class="form-signin w-100 m-auto">
+    <main class="form-signin w-full md:w-1/3 m-auto">
       <div class="alert alert-danger" v-show="errorMessage">
         {{ errorMessage }}
       </div>
 
-      <form @submit.prevent="login">
-        <div class="form-floating">
-          <input type="text" class="form-control" id="username" v-model="form.username">
-          <label for="username">Login</label>
-        </div>
-        <div class="form-floating">
-          <input type="password" class="form-control" id="password" v-model="form.password">
-          <label for="password">Hasło</label>
-        </div>
-        <button class="btn btn-primary w-100 py-2" type="submit">Zaloguj</button>
-      </form>
+      <UCard>
+        <form @submit.prevent="login">
+          <div>
+            <UInput
+                type="text"
+                id="username"
+                size="xl"
+                placeholder="Login"
+                v-model="form.username"
+                icon="i-heroicons-user-circle"
+            />
+          </div>
+          <div class="mt-6">
+            <UInput
+                type="password"
+                id="password"
+                size="xl"
+                placeholder="Hasło"
+                v-model="form.password"
+                icon="i-heroicons-lock-closed"
+            />
+          </div>
+
+          <div class="mt-6 text-right">
+            <UButton type="submit">Zaloguj</UButton>
+          </div>
+        </form>
+      </UCard>
     </main>
   </div>
 </template>
 
 <style lang="css">
-.form-signin {
-  max-width: 330px;
-  padding: 1rem;
-}
 
-.form-signin .form-floating:focus-within {
-  z-index: 2;
-}
-
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
 </style>
