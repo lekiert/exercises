@@ -23,8 +23,4 @@ export default defineNuxtConfig({
   css: [
     '~/assets/scss/main.css'
   ],
-  ui: {
-    primary: 'green',
-    gray: 'cool'
-  }
 })
