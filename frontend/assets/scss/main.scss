@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-    a {
-        @apply text-green-600 border-b font-semibold;
-        &:hover {
-            @apply border-b-2
-        }
-    }
+    //a {
+    //    @apply text-green-600 border-b font-semibold;
+    //    &:hover {
+    //        @apply border-b-2
+    //    }
+    //}
 }
