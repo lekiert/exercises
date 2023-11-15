@@ -1,21 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/admin/dashboard">Home</a>
-          </li>
-        </ul>
-
-        <span class="navbar-text">
-          <a href="/logout">Wyloguj</a>
-        </span>
-      </div>
-    </div>
+  <nav class="w-full p-5 text-right">
+    <UButton to="/logout">
+      <UIcon name="i-heroicons-bolt-slash"></UIcon>
+    </UButton>
   </nav>
 </template>
