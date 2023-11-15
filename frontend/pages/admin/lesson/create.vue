@@ -28,11 +28,8 @@ const submit = async () => {
 
     navigateTo('/admin/lesson/' + response.data.value.lesson.id);
   } catch (e) {
-    debugger;
     console.error(e);
-    alert('boom');
   }
-
 };
 </script>
 

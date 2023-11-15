@@ -31,9 +31,7 @@ const submit = async () => {
 
     navigateTo('/admin/exercise/' + response.data.value.exercise.id);
   } catch (e) {
-    debugger;
     console.error(e);
-    alert('boom');
   }
 };
 </script>
