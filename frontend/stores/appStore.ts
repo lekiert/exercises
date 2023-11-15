@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 export const useAppStore = defineStore('app', {
   state: () => ({
     inProgress: false,
+    isDarkMode: false,
   }),
   actions: {
     setInProgress() {

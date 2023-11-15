@@ -17,6 +17,7 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxt/ui',
+    '@nuxtjs/color-mode',
     '@pinia/nuxt',
   ],
   ssr: false,
