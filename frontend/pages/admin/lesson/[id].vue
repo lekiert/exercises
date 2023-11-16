@@ -83,12 +83,12 @@ const save = async () => {
   } finally {
     appStore.clearInProgress()
   }
-};
+}
 
 const lessonExercises = computed(() => lesson.value.exercises.map((e: Exercise) => ({
   id: e.id,
   name: e.name,
-})));
+})))
 
 const lessonExerciseColumns = [
   {
@@ -100,7 +100,7 @@ const lessonExerciseColumns = [
   }, {
     key: 'actions',
   }
-];
+]
 
 const exerciseActions = (row: any) => [
   [{
@@ -154,6 +154,10 @@ onMounted(async () => {
           <label>Ćwiczenia</label>
 
           <UTable :rows="lessonExercises" :columns="lessonExerciseColumns">
+            <template #name-data="{ row }">
+              <TextLink :href="'/admin/exercise/' + row.id">{{ row.name }}</TextLink>
+            </template>
+
             <template #actions-data="{ row }">
               <UDropdown :items="exerciseActions(row)">
                 <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
