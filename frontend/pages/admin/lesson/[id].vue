@@ -160,9 +160,8 @@ onMounted(async () => {
 
             <template #actions-data="{ row }">
               <div class="text-right">
-                <UButton color="red" @click="removeExercise(row)">
+                <UButton color="gray" @click="removeExercise(row)">
                   <UIcon name="i-heroicons-x-mark" />
-                  Usuń
                 </UButton>
               </div>
             </template>
