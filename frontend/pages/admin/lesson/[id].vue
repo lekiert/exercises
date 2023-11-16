@@ -159,9 +159,12 @@ onMounted(async () => {
             </template>
 
             <template #actions-data="{ row }">
-              <UDropdown :items="exerciseActions(row)">
-                <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
-              </UDropdown>
+              <div class="text-right">
+                <UButton color="red" @click="removeExercise(row)">
+                  <UIcon name="i-heroicons-x-mark" />
+                  Usuń
+                </UButton>
+              </div>
             </template>
           </UTable>
         </FormRow>
