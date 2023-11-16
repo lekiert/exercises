@@ -35,6 +35,16 @@ const submit = async () => {
     console.error(e);
   }
 };
+
+const types = [
+  {
+    name: 'Luki',
+    value: 'brackets'
+  }, {
+    name: 'Quiz',
+    value: 'quiz'
+  }
+];
 </script>
 
 <template>
@@ -60,10 +70,7 @@ const submit = async () => {
 
         <FormRow>
           <label for="exercise-type-id" class="form-label">Typ</label>
-          <USelect id="form-type-id" v-model="exercise.type">
-            <option value="brackets">Luki</option>
-            <option value="quiz">Quiz</option>
-          </USelect>
+          <USelect id="form-type-id" v-model="exercise.type" :options="types" option-attribute="name" />
         </FormRow>
 
         <FormRow class="text-right">
