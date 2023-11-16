@@ -14,6 +14,12 @@ const solution = ref(props.exercise.solution || [{
   correctAnswerIndex: props.exercise.solution.correctAnswerIndex as number,
 }])
 
+if (!solution.value.length) {
+  solution.value = [{
+    correctAnswerIndex: props.exercise.solution.correctAnswerIndex as number,
+  }]
+}
+
 const addAnswer = (questionIndex: number) => {
   definition.value.answers[questionIndex].push({ text: '' });
 }
