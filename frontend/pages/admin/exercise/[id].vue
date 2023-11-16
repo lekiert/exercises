@@ -28,6 +28,7 @@ definePageMeta({
 
 const exercise = ref<Exercise>({
   id: null,
+  type: '',
   name: '',
   description: '',
   definition: {},
