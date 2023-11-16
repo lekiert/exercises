@@ -9,11 +9,13 @@ const isDark = computed({
     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
   }
 })
+
+const logout = () => navigateTo('/logout')
 </script>
 
 <template>
   <nav class="w-full p-5 text-right flex flex-row-reverse">
-    <UButton to="/logout" size="sm" class="ml-3">
+    <UButton type="button" @click="logout" size="sm" class="ml-3" color="green">
       <UIcon name="i-heroicons-bolt-slash"></UIcon>
       Wyloguj
     </UButton>
