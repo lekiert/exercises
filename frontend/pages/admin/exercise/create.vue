@@ -16,7 +16,7 @@ definePageMeta({
 const exercise = ref(<Exercise>{
   name: '',
   description: '',
-  type: '',
+  type: 'brackets',
   definition: {},
   solution: {},
 });
