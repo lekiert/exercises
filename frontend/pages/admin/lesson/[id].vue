@@ -110,6 +110,18 @@ const exerciseActions = (row: any) => [
   }]
 ];
 
+const deleteLesson = async () => {
+  const { status } = await useApiFetch('/api/lessons/' + lesson.value.id, {
+    method: 'delete',
+  })
+
+  if (status.value === 'error') {
+    alertStore.error('Błąd wewnętrzny')
+  } else {
+    navigateTo('/admin/dashboard')
+  }
+}
+
 onMounted(async () => {
   await getLesson();
 });
@@ -117,9 +129,9 @@ onMounted(async () => {
 
 <template>
   <Container>
-    <UCard>
-      <BackLink />
+    <BackLink />
 
+    <UCard>
       <template #header>
         <SectionHeader>
           Edytuj lekcję
@@ -156,7 +168,12 @@ onMounted(async () => {
         </FormRow>
 
         <FormRow class="text-right">
-          <UButton type="submit" @click.prevent="save">
+          <UButton @click="deleteLesson" color="red">
+            <UIcon name="i-heroicons-trash"></UIcon>
+            Usuń
+          </UButton>
+
+          <UButton type="submit" @click.prevent="save" class="ml-3">
             <UIcon class="i-heroicons-check" />
             Zapisz
           </UButton>

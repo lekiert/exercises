@@ -82,6 +82,18 @@ const save = async () => {
   }
 };
 
+const deleteExercise = async () => {
+  const { status } = await useApiFetch('/api/exercises/' + exercise.value.id, {
+    method: 'delete',
+  })
+
+  if (status.value === 'error') {
+    alertStore.error('Błąd wewnętrzny')
+  } else {
+    navigateTo('/admin/dashboard')
+  }
+}
+
 onMounted(async () => {
   await getExercise();
 });
@@ -124,7 +136,12 @@ onMounted(async () => {
         </FormRow>
 
         <FormRow class="text-right">
-          <UButton type="submit" @click.prevent="save"
+          <UButton @click="deleteExercise" color="red">
+            <UIcon name="i-heroicons-trash"></UIcon>
+            Usuń
+          </UButton>
+
+          <UButton type="submit" @click.prevent="save" class="ml-3"
                   :disabled="appStore.inProgress">Zapisz</UButton>
         </FormRow>
       </form>

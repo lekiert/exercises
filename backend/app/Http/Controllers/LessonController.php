@@ -87,8 +87,13 @@ class LessonController extends Controller
         return response()->json(compact('lesson'));
     }
 
-    public function destroy(Lesson $lesson, DeleteLessonAction $action)
+    public function destroy(int $id, DeleteLessonAction $action)
     {
+        $lesson = auth()
+            ->user()
+            ->lessons()
+            ->findOrFail($id);
+
         $action->execute($lesson);
 
         return response(status: 204);
