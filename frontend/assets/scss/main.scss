@@ -4,9 +4,9 @@
 
 @layer base {
     a.text-link {
-        @apply text-green-600 border-b font-semibold;
+        @apply text-green-600 dark:text-green-400 border-b font-semibold dark:border-green-500/25;
         &:hover {
-            @apply border-b-2
+            @apply border-green-500/75 dark:border-green-500/50
         }
     }
 }
