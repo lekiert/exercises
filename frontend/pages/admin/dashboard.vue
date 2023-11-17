@@ -86,6 +86,16 @@ const deleteLessons = async () => {
               <UIcon class="i-heroicons-plus"></UIcon>
               Dodaj
             </UButton>
+
+            <UButton
+                v-if="selectedLessons.length"
+                @click="deleteLessons"
+                color="red"
+                class="float-right mr-3"
+            >
+              <UIcon class="i-heroicons-trash"></UIcon>
+              Usuń zaznaczone
+            </UButton>
           </SectionHeader>
         </template>
 
