@@ -103,9 +103,9 @@ onMounted(async () => {
 
 <template>
   <Container>
-    <UCard>
-      <BackLink />
+    <BackLink />
 
+    <UCard>
       <template #header>
         <SectionHeader>
           Edytuj ćwiczenie
