@@ -136,14 +136,14 @@ onMounted(async () => {
                     @exerciseUpdated="updateExercise($event)"></QuizForm>
         </FormRow>
 
-        <FormRow class="text-right">
+        <FormRow class="flex flex-row-reverse">
+          <UButton type="submit" @click.prevent="save" class="ml-3"
+                   :disabled="appStore.inProgress">Zapisz</UButton>
+
           <UButton @click="deleteExercise" color="red">
             <UIcon name="i-heroicons-trash"></UIcon>
             Usuń
           </UButton>
-
-          <UButton type="submit" @click.prevent="save" class="ml-3"
-                  :disabled="appStore.inProgress">Zapisz</UButton>
         </FormRow>
       </form>
     </UCard>
