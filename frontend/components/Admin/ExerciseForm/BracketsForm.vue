@@ -88,7 +88,7 @@ watch(newDefinition, () => {
 
     <UCard>
       <template v-for="(el, index) in newDefinition">
-        <span v-if="el.type === 'text'">{{ el.value }}</span>
+        <span v-if="el.type === 'text'" v-html="el.value.replaceAll('\n', '<br>')"></span>
         <div v-if="el.type === 'bracket'" style="display: inline-block">
           <UButtonGroup size="sm" class="mx-4 my-2">
             <UButton type="button" size="sm" @click="decreaseFieldSize(index)" color="gray">
