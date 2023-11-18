@@ -1,0 +1,3 @@
+<template>
+  <UInput></UInput>
+</template>

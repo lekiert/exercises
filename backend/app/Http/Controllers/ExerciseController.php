@@ -21,10 +21,11 @@ class ExerciseController extends Controller
      */
     public function index(Request $request, GetExercisesQuery $getExercisesQuery)
     {
-        $perPage = $request->input('perPage', 10);
+        $perPage = $request->input('perPage', 25);
+        $page = (int)$request->input('page', 1);
         $search = $request->input('q');
 
-        return $getExercisesQuery->execute($search)->paginate($perPage);
+        return $getExercisesQuery->execute($search)->paginate($perPage, page: $page);
     }
 
     /**
@@ -106,6 +107,21 @@ class ExerciseController extends Controller
             ->findOrFail($id);
 
         $exercise->delete();
+
+        return response('', 201);
+    }
+
+    public function bulkDestroy(Request $request)
+    {
+        $exercises = auth()
+            ->user()
+            ->exercises()
+            ->whereIn('id', $request->get('ids', []))
+            ->get();
+
+        foreach ($exercises as $exercise) {
+            $exercise->delete();
+        }
 
         return response('', 201);
     }

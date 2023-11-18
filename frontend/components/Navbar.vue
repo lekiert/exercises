@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import Button from "~/components/Form/Button.vue";
+
 const colorMode = useColorMode()
 
 const isDark = computed({
@@ -28,5 +30,9 @@ const logout = () => navigateTo('/logout')
     >
       Zmień motyw
     </UButton>
+
+    <div class="grow text-left">
+      <ULink to="/admin/exercises">Ćwiczenia</ULink>
+    </div>
   </nav>
 </template>

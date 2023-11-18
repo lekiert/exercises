@@ -22,7 +22,11 @@ const getLessons = async () => {
   }
 }
 const getExercises = async () => {
-  const { data, status, error } = await useApiCall('/api/exercises');
+  const { data, status, error } = await useApiCall('/api/exercises', {
+    query: {
+      perPage: 10,
+    }
+  });
 
   if (status?.value === 'success') {
     exercises.value = data.value.data;

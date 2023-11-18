@@ -34,6 +34,7 @@ Route::controller(ExerciseController::class)->group(function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/exercises', 'index');
         Route::post('/exercises', 'store');
+        Route::post('/exercises/bulk-delete', 'bulkDestroy');
         Route::get('/exercises/{id}', 'show');
         Route::put('/exercises/{id}', 'update');
         Route::delete('/exercises/{id}', 'destroy');
