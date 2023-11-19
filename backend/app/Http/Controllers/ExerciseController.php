@@ -84,8 +84,8 @@ class ExerciseController extends Controller
             ->findOrFail($id);
 
         $data = new ExerciseData(
-            $request->input('exercise.name'),
-            $request->input('exercise.description'),
+            (string)$request->input('exercise.name'),
+            (string)$request->input('exercise.description'),
             $exercise->type,
             $request->input('exercise.definition'),
             $request->input('exercise.solution'),
