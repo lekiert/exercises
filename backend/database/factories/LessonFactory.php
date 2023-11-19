@@ -21,6 +21,7 @@ class LessonFactory extends Factory
     public function definition(): array
     {
         return [
+            'owner_id' => 1,
             'name' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'slug' => Str::slug($this->faker->sentence)

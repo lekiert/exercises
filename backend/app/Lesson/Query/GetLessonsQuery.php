@@ -9,9 +9,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 class GetLessonsQuery
 {
-    public function execute(int $maxResults = 10): Builder
+    public function execute(?string $search = '', int $maxResults = 10): Builder
     {
-        return Lesson::query()
-            ->orderByDesc('id');
+        $query = Lesson::query()
+            ->orderByDesc('id')
+            ->limit($maxResults);
+
+        if ($search) {
+            $query->where('name', 'LIKE', '%' . $search . '%');
+        }
+
+        return $query;
     }
 }

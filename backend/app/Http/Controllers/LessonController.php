@@ -22,9 +22,11 @@ class LessonController extends Controller
      */
     public function index(Request $request, GetLessonsQuery $getLessonsQuery)
     {
-        $perPage = $request->input('perPage', 10);
+        $perPage = $request->input('perPage', 25);
+        $page = (int)$request->input('page', 1);
+        $search = $request->input('query');
 
-        return $getLessonsQuery->execute()->paginate($perPage);
+        return $getLessonsQuery->execute($search)->paginate($perPage, page: $page);
     }
 
     /**
@@ -97,5 +99,20 @@ class LessonController extends Controller
         $action->execute($lesson);
 
         return response(status: 204);
+    }
+
+    public function bulkDestroy(Request $request)
+    {
+        $exercises = auth()
+            ->user()
+            ->lessons()
+            ->whereIn('id', $request->get('ids', []))
+            ->get();
+
+        foreach ($exercises as $exercise) {
+            $exercise->delete();
+        }
+
+        return response('', 201);
     }
 }
