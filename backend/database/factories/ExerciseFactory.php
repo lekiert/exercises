@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Exercise\Model\Exercise;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ExerciseFactory extends Factory
 {
+    protected $model = Exercise::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,7 +20,12 @@ class ExerciseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'owner_id' => 1,
+            'type' => 'brackets',
+            'name' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
+            'definition' => [],
+            'solution' => [],
         ];
     }
 }
