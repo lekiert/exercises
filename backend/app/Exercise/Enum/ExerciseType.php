@@ -8,4 +8,5 @@ enum ExerciseType: string
 {
     case BRACKETS = 'brackets';
     case QUIZ = 'quiz';
+    case QUIZ_MULTIPLE = 'quiz_multiple';
 }

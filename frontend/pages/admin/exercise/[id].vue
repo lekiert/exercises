@@ -16,6 +16,7 @@ import {useAppStore} from "~/stores/appStore";
 import BackLink from "~/components/Admin/BackLink.vue";
 import Container from "~/components/Admin/Container.vue";
 import type {Exercise, Lesson} from "~/types";
+import QuizMultipleForm from "~/components/Admin/ExerciseForm/QuizMultipleForm.vue";
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -134,6 +135,8 @@ onMounted(async () => {
                         @exerciseUpdated="updateExercise($event)"></BracketsForm>
           <QuizForm :exercise="exercise" v-if="exercise.type === 'quiz'"
                     @exerciseUpdated="updateExercise($event)"></QuizForm>
+          <QuizMultipleForm :exercise="exercise" v-if="exercise.type === 'quiz_multiple'"
+                    @exerciseUpdated="updateExercise($event)"></QuizMultipleForm>
         </FormRow>
 
         <FormRow class="flex flex-row-reverse">

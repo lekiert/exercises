@@ -43,6 +43,9 @@ const types = [
   }, {
     name: 'Quiz',
     value: 'quiz'
+  }, {
+    name: 'Quiz (wielokrotnego wyboru)',
+    value: 'quiz_multiple'
   }
 ];
 </script>
