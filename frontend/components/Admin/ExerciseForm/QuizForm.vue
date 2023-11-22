@@ -60,7 +60,7 @@ watch(solution, (newVal) => {
       :question="question"
       :solution="solution[index]"
       @questionUpdated="definition.questions[index].text = $event"
-      @answerSelected="solution[index].correctAnswerIndex = $event.answerIndex"
+      @answerSelected="solution[index] = { correctAnswerIndex: $event.answerIndex }"
       @answerAdded="addAnswer(index)"
       @answerRemoved="removeAnswer(index, $event.answerIndex)"
   />
