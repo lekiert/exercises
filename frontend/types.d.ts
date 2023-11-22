@@ -28,4 +28,11 @@ type Lesson = {
   created_at?: string|null,
 }
 
+type User = {
+  id: number|null,
+  name: string,
+  email: string,
+  created_at?: string|null,
+}
+
 export { AlertType, Alert, Exercise, Lesson }

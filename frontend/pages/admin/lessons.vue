@@ -13,6 +13,7 @@ import LessonService from "~/services/admin/LessonService";
 
 definePageMeta({
   layout: 'admin',
+  middleware: ['auth']
 });
 
 const alertsStore = useAlertsStore();

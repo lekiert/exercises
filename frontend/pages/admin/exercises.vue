@@ -12,6 +12,7 @@ import BackLink from "~/components/Admin/BackLink.vue";
 
 definePageMeta({
   layout: 'admin',
+  middleware: ['auth']
 });
 
 const alertsStore = useAlertsStore();

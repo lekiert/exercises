@@ -8,6 +8,9 @@ import {useAlertsStore, useApiFetch} from "#imports";
 
 definePageMeta({
   layout: 'admin',
+  middleware: [
+      'auth',
+  ]
 });
 
 const alertsStore = useAlertsStore();

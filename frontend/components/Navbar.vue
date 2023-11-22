@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import Button from "~/components/Form/Button.vue";
 import Container from "~/components/Admin/Container.vue";
+import {useAuthStore} from "~/stores/authStore"
 
+const authStore = useAuthStore()
 const colorMode = useColorMode()
 
 const isDark = computed({
@@ -17,7 +19,7 @@ const logout = () => navigateTo('/logout')
 </script>
 
 <template>
-  <Container>
+  <Container v-if="authStore.user">
     <nav class="w-full py-5 text-right flex flex-row-reverse">
       <UButton type="button" @click="logout" size="sm" class="ml-3" color="green">
         <UIcon name="i-heroicons-bolt-slash"></UIcon>
