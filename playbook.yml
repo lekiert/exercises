@@ -4,38 +4,38 @@
   tasks:
     - name: "Pull changes from GitHub"
       git:
-        repo: "{{ repository }}" # This is how we can make this step reusable across projects
+        repo: "{{ repository }}"
         dest: "{{ directory }}"
-        version: master # Branch to pull
+        version: master
         accept_hostkey: yes
-      register: repo # Store the result of this task in a variable
+      register: repo
 
     - name: "Install Composer dependencies"
-      shell: "composer install --no-scripts --no-dev"
+      shell: "composer install --no-scripts"
       args:
-        chdir: "{{ directory }}"
-      when: repo.changed # Only run this step if we actually pulled new changes from GitHub
+        chdir: "{{ directory }}/backend"
+      when: repo.changed
 
     - name: "Cache the configuration"
       shell: "php artisan config:cache"
       args:
-        chdir: "{{ directory }}"
-      when: repo.changed # Only run if we pulled changes
+        chdir: "{{ directory }}/backend"
+      when: repo.changed
 
     - name: "Clear the view cache"
       shell: "php artisan view:clear"
       args:
-        chdir: "{{ directory }}"
-      when: repo.changed # Only run if we pulled changes
+        chdir: "{{ directory }}/backend"
+      when: repo.changed
 
     - name: "Run the migrations"
       shell: "php artisan migrate --force"
       args:
-        chdir: "{{ directory }}"
-      when: repo.changed # Only run if we pulled changes
+        chdir: "{{ directory }}/backend"
+      when: repo.changed
 
     - name: "Compile frontend"
-      shell: "npm run prod"
+      shell: "npm run build"
       args:
-        chdir: "{{ directory }}"
-      when: repo.changed # Only run if we pulled changes
+        chdir: "{{ directory }}/frontend"
+      when: repo.changed
