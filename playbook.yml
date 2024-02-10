@@ -39,3 +39,9 @@
       args:
         chdir: "{{ directory }}/frontend"
       when: repo.changed
+
+    - name: "Restart server"
+      shell: "pm2 restart Exercises"
+      args:
+        chdir: "{{ directory }}/frontend"
+      when: repo.changed
